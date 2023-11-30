@@ -14,3 +14,7 @@
     -   Admin (email : hicundoto@gmail.com & password : 123456)
     -   User 1 (email : jekrai8@gmail.com & password : 123456)
     -   User 2 (email : saikulh@gmail.com & password : 123456)
+
+## Backup File : 
+    - dump-db_syaichul_savinc-202311301558.sql (database backup, saya menggunakan dbeaver)
+    - Insomnia_2023-11-30.json (Api documentation, saya menggunakan insomnia)
