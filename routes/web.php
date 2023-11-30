@@ -24,6 +24,8 @@ Route::post('/registrasi',[LoginController::class,'store'])->name('post.registra
 
 Route::group(['middleware'=>['admin']], function(){
     Route::get('/admin',[DashboardController::class,'listEvent'])->name('dashboard.admin');
+    Route::get('/admin/edit-profile/{id}',[LoginController::class,'editProfile'])->name('dashboard.editProfile');
+    Route::put('/admin/{id}/edit-profile',[LoginController::class,'editStoreProfile'])->name('dashboard.editStoreProfile');
     Route::get('/admin/create-event', [DashboardController::class, 'createEvent'])->name('dashboard.createEvent');
     Route::post('/admin', [DashboardController::class, 'storeEvent'])->name('dashboard.postCreateEvent');
     Route::post('/admin/event/{id}', [DashboardController::class, 'destroy'])->name('dashboard.postDeletedestroy');
@@ -34,6 +36,8 @@ Route::group(['middleware'=>['admin']], function(){
 
 Route::group(['middleware'=>['user']], function(){
     Route::get('/user',[DashboardController::class,'listEventUser'])->name('dashboard.user');
+    Route::get('/user/edit-profile/{id}',[LoginController::class,'editProfile'])->name('dashboard.user.editProfile');
+    Route::put('/user/{id}/edit-profile',[LoginController::class,'editStoreProfile'])->name('dashboard.user.editStoreProfile');
     Route::get('/user/create-event', [DashboardController::class, 'createEvent'])->name('dashboard.user.createEvent');
     Route::post('/user', [DashboardController::class, 'storeEvent'])->name('dashboard.user.postCreateEvent');
     Route::post('/user/event/{id}', [DashboardController::class, 'destroy'])->name('dashboard.user.postDeletedestroy');

@@ -143,15 +143,6 @@ class DashboardController extends Controller
         }
     }
 
-    public function detailBooking(Request $request)
-    {
-        $booking = Bookings::where('event_id',$request->id)->get();
-        
-        return view('user.listBooking',[
-            'data' => $booking
-        ]);
-    }
-
     public function createEvent()
     {
         $role = Session::get('role');
@@ -209,7 +200,6 @@ class DashboardController extends Controller
     public function storeEditEvent(Request $request,$id)
     {
         $role = Session::get('role');
-        // dd($request);
         $request->validate([
             'title' => 'required',
             'description' => 'required',

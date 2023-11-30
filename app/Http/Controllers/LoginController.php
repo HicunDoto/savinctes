@@ -79,4 +79,36 @@ class LoginController extends Controller
         Session::flush();
         return redirect('/');
     }
+
+    public function editProfile(){
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $user = User::find($id);
+        if ($role == 'admin') {
+            return view('admin.formProfile',[
+                'user' => $user
+            ]);
+        } else {
+            return view('user.formProfile',[
+                'user' => $user
+            ]);
+        }
+    }
+
+    public function editStoreProfile(Request $request,$id){
+        $role = Session::get('role');
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+        $user = User::where('id',$id)->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+        if ($role == 'admin') {
+            return redirect('/admin');
+        } else {
+            return redirect('/user');
+        }
+    }
 }
