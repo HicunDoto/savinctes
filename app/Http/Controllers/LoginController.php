@@ -24,7 +24,6 @@ class LoginController extends Controller
             
         }
         
-        // return view('login');
     }
     public function registrasi()
     {
@@ -63,20 +62,16 @@ class LoginController extends Controller
                 Session::put('email', $user->email);
                 Session::put('role', $user->role);
                 Session::put('id', $user->id);
-                // return $this->sendResponse('admin', 'Berhasil');
                 return redirect()->intended('admin');
             }else{
                 Session::put('email', $user->email);
                 Session::put('role', $user->role);
                 Session::put('id', $user->id);
-                // return $this->sendResponse('user', 'Berhasil');
                 return redirect()->intended('user')->with('status', 'Selamat Datang '.$user->name);
             }
         }else{
-            // return $this->sendError('Gagal');
             return redirect('/')->with('status', 'Username & Password Salah!!');
         }
-        // return json_encode($data);
     }
     
     public function logout (Request $request){
