@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->nullable()->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->bigInteger('event_id')->unsigned();
-            $table->foreign('event_id')->nullable()->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('event_id')->nullable()->references('id')->on('events')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->dateTime('booked_at', $precision = 0);
             $table->timestamps();
         });

@@ -18,11 +18,11 @@ class Admin
     {
         if ( ! auth()->user() ){
             return redirect('/')->with('status', 'Mohon Login Terlebih Dahulu!');; 
-        }elseif(auth()->user()->role != "Users"){
-            //dd($request->all());
-            return redirect('/admin'); 
-        }else{
+        }elseif(auth()->user()->role == "admin"){
+            // dd(route('dashboard.admin'));
             return $next($request);
+        }else{
+            return redirect('/user'); 
         }
     }
 }

@@ -16,8 +16,8 @@ class LoginController extends Controller
         if ($cek == null) {
             return view('login');
         } else {
-            if ($cekLevel == '1') {
-                return redirect()->route('program');
+            if ($cekLevel == 'admin') {
+                return redirect()->route('dashboard.admin');
             } else {
                 return redirect()->route('indexSales');
             }
@@ -64,7 +64,7 @@ class LoginController extends Controller
                 Session::put('role', $user->role);
                 Session::put('id', $user->id);
                 // return $this->sendResponse('admin', 'Berhasil');
-                return redirect()->intended('admin')->with('marketing', 'Selamat Datang admin '.$user->name);
+                return redirect()->intended('admin');
             }else{
                 Session::put('email', $user->email);
                 Session::put('role', $user->role);
@@ -73,8 +73,8 @@ class LoginController extends Controller
                 return redirect()->intended('user')->with('status', 'Selamat Datang '.$user->name);
             }
         }else{
-            return $this->sendError('Gagal');
-        // return redirect('/login')->with('status', 'Username & Password Salah!!');
+            // return $this->sendError('Gagal');
+            return redirect('/')->with('status', 'Username & Password Salah!!');
         }
         // return json_encode($data);
     }

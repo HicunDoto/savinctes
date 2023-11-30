@@ -19,24 +19,25 @@ use App\Http\Controllers\ApiController;
 Route::get('/',[LoginController::class,'home'])->name('login');
 Route::post('/login',[LoginController::class,'login'])->name('post.login');
 Route::get('/logout',[LoginController::class,'logout'])->name('logout');
-Route::get('/registrasi',[LoginController::Class,'registrasi'])->name('get.registrasi');
-Route::post('/registrasi',[LoginController::Class,'store'])->name('post.registrasi');
-
-// Route::get('/program',[MarketingController::class,'program'])->name('program');
-// Route::post('/program',[MarketingController::class,'saveProgram'])->name('saveProgram');
+Route::get('/registrasi',[LoginController::class,'registrasi'])->name('get.registrasi');
+Route::post('/registrasi',[LoginController::class,'store'])->name('post.registrasi');
 
 Route::group(['middleware'=>['admin']], function(){
-    Route::get('/program',[DashboardController::class,'program'])->name('program');
-    Route::get('/addprogram',[DashboardController::class,'formProgram'])->name('addProgram');
-    Route::get('/editprogram/{id}',[DashboardController::class,'formProgram'])->name('editProgram');
-    Route::get('/addsales',[DashboardController::class,'formSales'])->name('addSales');
-    Route::get('/sales',[DashboardController::class,'sales'])->name('sales');
-    Route::get('/exportPDF',[DashboardController::class,'exportPDF'])->name('exportPDF');
+    Route::get('/admin',[DashboardController::class,'listEvent'])->name('dashboard.admin');
+    Route::get('/admin/create-event', [DashboardController::class, 'createEvent'])->name('dashboard.createEvent');
+    Route::post('/admin', [DashboardController::class, 'storeEvent'])->name('dashboard.postCreateEvent');
+    Route::post('/admin/event/{id}', [DashboardController::class, 'destroy'])->name('dashboard.postDeletedestroy');
+    Route::get('/admin/{id}/edit',[DashboardController::class,'editEvent'])->name('dashboard.editEvent');
+    Route::put('/admin/{id}/edit-event',[DashboardController::class,'storeEditEvent'])->name('dashboard.postEditEvent');
+    Route::get('/admin/{id}/detail-event',[DashboardController::class,'detailEvent'])->name('dashboard.detailEvent');
 });
 
 Route::group(['middleware'=>['user']], function(){
-    Route::get('/customer',[DashboardController::class,'customer'])->name('customer');
-    Route::get('/addcustomer',[DashboardController::class,'formCustomer'])->name('addCustomer');
-    Route::get('/editcustomer/{id}',[DashboardController::class,'formCustomer'])->name('editCustomer');
-    Route::get('/updatepassword/{id}',[DashboardController::class,'updatePassword'])->name('updatePassword');
+    Route::get('/user',[DashboardController::class,'listEventUser'])->name('dashboard.user');
+    Route::get('/user/create-event', [DashboardController::class, 'createEvent'])->name('dashboard.user.createEvent');
+    Route::post('/user', [DashboardController::class, 'storeEvent'])->name('dashboard.user.postCreateEvent');
+    Route::post('/user/event/{id}', [DashboardController::class, 'destroy'])->name('dashboard.user.postDeletedestroy');
+    Route::get('/user/{id}/edit',[DashboardController::class,'editEvent'])->name('dashboard.user.editEvent');
+    Route::put('/user/{id}/edit-event',[DashboardController::class,'storeEditEvent'])->name('dashboard.user.postEditEvent');
+    Route::get('/user/{id}/detail-event',[DashboardController::class,'detailEvent'])->name('dashboard.user.detailEvent');
 });

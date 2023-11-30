@@ -12,14 +12,44 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    public function addBooking(Request $request) {
+        $booking = Bookings::where('event_id',$request->event_id)->where('user_id',$request->UserID)->get()->count();
+        if ($booking > 0) {
+            return response()->json([
+                'status_code' => 404,
+                'data' => []
+            ],200);
+        }else{
+            $booking = new Bookings();
+            $booking->event_id = $request->event_id;
+            $booking->user_id = $request->UserID;
+            $booking->booked_at = date('Y-m-d H:i:s');
+            $booking->save();
+            return response()->json([
+                'status_code' => 200,
+                'data' => $booking->toArray()
+            ],200);
+        }
+        
+    }
     public function detailEvent(Request $request)
     {
-        $getID = Session::get('id');
+        $getID = $request->UserID;
         $cekRole = User::find($getID);
         if (!$cekRole) {
-            return false;
+            return response()->json([
+                'status_code' => 404,
+                'data' => []
+            ],404);
         }else{
             $event = Events::find($request->id);
+            if ($event == null) {
+                return response()->json([
+                    'status_code' => 404,
+                    'data' => []
+                ],404);
+            }
+            // dd($event);
             $data = [];
             $data['ID'] = $event->id;
             $data['title'] = $event->title;
@@ -42,12 +72,14 @@ class ApiController extends Controller
             }
             $data['creator'] = $event->user->name;
             $data['bookings'] = [];
-            if ($event->created_by_user_id == $cekRole->ID || $cekRole->role == 1) {
+            if ($event->created_by_user_id == $cekRole->id || $cekRole->role == 1) {
                 $bookings = Bookings::where('event_id',$event->id)->get();
+                $no = 1;
                 foreach ($bookings as $key => $value) {
                     $arrTemp = [];
-                    $arrTemp['Nama yang sudah booking'] = $value->user->name;
-                    $arrTemp['Tanggal booking'] = date('d-m-Y', strtotime($value->booked_at));
+                    $arrTemp['no'] = $no++;
+                    $arrTemp['Nama_booking'] = $value->user->name;
+                    $arrTemp['Tanggal_booking'] = date('d-M-Y H:i', strtotime($value->booked_at));
                     array_push($data['bookings'], $arrTemp);
                 }
             }
