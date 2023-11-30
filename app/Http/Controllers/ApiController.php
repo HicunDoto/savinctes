@@ -42,11 +42,10 @@ class ApiController extends Controller
                 'data' => []
             ],404);
         }else{
-            // dd($request->post()['id']);
             if ($request->post() && $request->post()['id'] != '') {
                 $event = Events::where('id',$request->post()['id'])->get();
             } else {
-                $event = Events::all();
+                $event = Events::where(DB::raw("CONCAT(`date`, ' ', `time`)"), '>', date('Y-m-d H:i:s'))->get();
             }
             if ($event == null) {
                 return response()->json([
@@ -54,7 +53,6 @@ class ApiController extends Controller
                     'data' => []
                 ],404);
             }
-            // dd($event);
             $data = [];
             foreach ($event as $key => $value) {
                 $arrTemp = [];
