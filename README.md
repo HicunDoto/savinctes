@@ -1,5 +1,10 @@
 # Documentation
 
+## Component Plugin & Framework yang dipakai :
+    - Laravel
+    - Tailwind CSS
+    - Vue JS
+    - Flowbite
 ## Api :
 
 > addBooking (Buat booking event)
