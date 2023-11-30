@@ -44,29 +44,32 @@
           <button class="booking simpan text-white bg-yellow-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">BOOKING</button>
         </div>
      @endif
-     <div>
-        <h4 class="mb-4 mt-4 text-2xl font-extrabold leading-none tracking-tight">List Of Bookings</h4>
-        <div style="margin-top: 76px;" class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            No
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nama Booking
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Tanggal Booking
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+     @if ($data->loggin_userid == $data->created_by_user_id || $data->role == 'admin')
+        <div>
+            <h4 class="mb-4 mt-4 text-2xl font-extrabold leading-none tracking-tight">List Of Bookings</h4>
+            <div style="margin-top: 76px;" class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                No
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Nama Booking
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tanggal Booking
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                </tbody>
-                </table>
+                    </tbody>
+                    </table>
+            </div>
         </div>
-     </div>
+         
+     @endif
      
 <script>
     var getID = 0;
