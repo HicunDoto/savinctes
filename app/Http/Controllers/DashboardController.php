@@ -20,10 +20,8 @@ class DashboardController extends Controller
 {
     public function listEvent()
     {
-        // return view('admin.listEvent');
         $getID = Session::get('id');
         $cekRole = User::find($getID);
-        // dd($cekRole->id);
         if (!$cekRole) {
             return false;
         }else{
@@ -58,7 +56,6 @@ class DashboardController extends Controller
             array_push($data,$arrTemp);
         }
         $data = $this->paginate($data);
-        // dd(json_encode($data));
         return view('admin.listEvent',[
             'data' => $data,
         ]);
@@ -183,7 +180,6 @@ class DashboardController extends Controller
 
     public function editEvent($id)
     {
-        // dd($id);
         $event = Events::find($id);
         $role = Session::get('role');
         if ($role == 'admin') {
